@@ -1,38 +1,42 @@
 import requests
 import json
 
-city = "Bangalore"
+API_KEY = "581c975f755964037300e21b75805212"   
 
-BASE_URL = "http://api.weatherapi.com/v1"
+location = "Delhi"
 
-weather_data = {
-    'key': "33c6bd00e41b40a7af052341232109",
-    'q': city,
-}
+weather_url = f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={API_KEY}"
 
-air_data = {
-    'key': "33c6bd00e41b40a7af052341232109",
-    'q': city,
-    'aqi':'yes'
-}
+response = requests.get(weather_url)
 
-weather_response = requests.get(f"{BASE_URL}/forecast.api", params=weather_data)
-air_response = requests.get(f"{BASE_URL}/current/airquality", params=air_data)
-# print(response.status_code)
+if response.status_code == 200:
+    weather_data = response.json()
+    with open('weather_data.json', 'w') as file:
+        json.dump(weather_data, file, indent = 2)
 
-try:
-    if weather_response.status_code == 200:
-        weather_data = weather_response.json()
-        with open('weather_data.json', 'w') as file:
-            json.dump(weather_data, file, indent = 2)
+    temperature_celsius = round((weather_data['main']['temp'] - 273.15), 2)
+    humidity = weather_data['main']['humidity']
 
-except Exception as e:
-    print(f"ERROR (WEATHER): {e}")
+    print(f"Weather in {location}:")
+    print(f"Temperature: {temperature_celsius}°C")
+    print(f"Humidity: {humidity}%")
 
-try:
-    if air_response.status_code == 200:
-        air_data = air_response.json()
-        with open('air_data.json', 'w') as file:
-            json.dump(air_data, file, indent = 2)
-except Exception as e:
-    print(f"ERROR (AIR_DATA): {e}")
+    air_quality_url = f'http://api.openweathermap.org/data/2.5/air_pollution?lat={weather_data["coord"]["lat"]}&lon={weather_data["coord"]["lon"]}&appid={API_KEY}'
+
+    # Send a GET request to retrieve air quality data
+    response = requests.get(air_quality_url)
+
+    if response.status_code == 200:
+        air_quality_data = response.json()
+        with open('air_quality_data.json', 'w') as file:
+            json.dump(air_quality_data, file, indent = 2)
+        
+        # Extract AQI data
+        aqi = air_quality_data['list'][0]['main']['aqi']
+
+        print(f"Air Quality Index (AQI): {aqi}")
+    else:
+        print(f"Failed to retrieve air quality data. Status code: {response.status_code}")
+
+else:
+    print(f"Failed to retrieve weather data. Status code: {response.status_code}")
