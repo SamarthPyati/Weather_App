@@ -1,9 +1,9 @@
 import requests
 import json
-# from locater import get_coordinates
 
 API_KEY_WEATHER = "581c975f755964037300e21b75805212"
 API_KEY_AIR = "l3L65H6eG9QrX2dFB5SV3QbfKCknDcXx"
+
 
 location = input("Location: ")
 # coordinates = get_coordinates(location)
@@ -53,14 +53,13 @@ if weather_response.status_code == 200:
 
     # ------------- WQI --------------
 
-    print(coordinates[0], coordinates[1])
-
     water_response = requests.get("https://api.meersens.com/environment/public/water/current", headers={
         'apikey': API_KEY_AIR
     }, params={
         'lat': coordinates[0],
         'lng': coordinates[1]
     })
+
 
     try:
         if water_response.status_code == 200:

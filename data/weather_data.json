@@ -1,43 +1,44 @@
 {
   "coord": {
-    "lon": 77.6033,
-    "lat": 12.9762
+    "lon": -74.006,
+    "lat": 40.7143
   },
   "weather": [
     {
-      "id": 802,
-      "main": "Clouds",
-      "description": "scattered clouds",
-      "icon": "03d"
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01n"
     }
   ],
   "base": "stations",
   "main": {
-    "temp": 301.85,
-    "feels_like": 303.55,
-    "temp_min": 301.05,
-    "temp_max": 302.95,
-    "pressure": 1014,
-    "humidity": 59
+    "temp": 288.22,
+    "feels_like": 287.85,
+    "temp_min": 282.48,
+    "temp_max": 291.45,
+    "pressure": 1026,
+    "humidity": 79
   },
-  "visibility": 6000,
+  "visibility": 10000,
   "wind": {
-    "speed": 2.06,
-    "deg": 290
+    "speed": 5.36,
+    "deg": 352,
+    "gust": 6.71
   },
   "clouds": {
-    "all": 40
+    "all": 0
   },
-  "dt": 1695370957,
+  "dt": 1695376295,
   "sys": {
-    "type": 2,
-    "id": 2017753,
-    "country": "IN",
-    "sunrise": 1695343122,
-    "sunset": 1695386788
+    "type": 1,
+    "id": 4610,
+    "country": "US",
+    "sunrise": 1695379395,
+    "sunset": 1695423269
   },
-  "timezone": 19800,
-  "id": 1277333,
-  "name": "Bengaluru",
+  "timezone": -14400,
+  "id": 5128581,
+  "name": "New York",
   "cod": 200
 }
